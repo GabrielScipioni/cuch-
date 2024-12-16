@@ -1,5 +1,6 @@
 package cucha.esto.users.controllers;
 
+import cucha.esto.users.dtos.users.LoginRequest;
 import cucha.esto.users.services.UserService;
 import cucha.esto.users.dtos.users.UsuarioDTO;
 import cucha.esto.users.dtos.users.UsuarioResponseDTO;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/usuarios")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -22,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
-        return ResponseEntity.ok(userService.login(email, password));
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(userService.login(loginRequest.getEmail(), loginRequest.getPassword()));
     }
 }
